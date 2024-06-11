@@ -43,16 +43,16 @@ create table profesor(
 );
 
 create table asignatura(
-	id int auto_increment primary key,
+    id int auto_increment primary key,
     nombre varchar(100) not null,
-    creditos float,
-    tipo enum('Basica','Optativa','Obligatoria') not null,
-    curso tinyint(3),
-    cuatrimestre tinyint,
-    id_grado int not null,
-    id_profesor int,
-    foreign key (id_grado) references grado(id),
-    foreign key (id_profesor) references profesor(id_profesor)
+    creditos float not null,
+    tipo enum ('Basica','Optativas', 'Obligatorias') not null,
+    curso tinyint(3) not null,
+    cuatrimestre TINYINT(3) not null,
+    id_Profesor int,
+    id_grado int,
+    foreign key(id_profesor)references profesor(id_profesor),
+    foreign key(id_grado)references grado(id)
 );
 
 create table grado(
@@ -61,12 +61,12 @@ create table grado(
 );
 
 create table alumno_se_matricula_asignatura(
-	id_alumno int primary key,
-    id_asignatura int primary key,
-    id_curso_escolar int primary key,
-    foreign key (id_alumno)references persona(id),
-	foreign key (id_asignatura)references asignatura(id),
-    foreign key (id_curso_escolar) references curso_escolar(id)
+    id_alumno int,
+    id_asignatura int not null,
+    id_curso_escolar int not null,
+    foreign key (id_curso_escolar) references curso_escolar(id),
+    foreign key (id_asignatura) references asignatura(id),
+    foreign key(id_alumno) references persona(id)
 );
 
 create table curso_escolar(
@@ -74,5 +74,7 @@ create table curso_escolar(
     anyo_inicio YEAR(4) not null,
     anyo_fin YEAR(4) not null
 );
+
+show tables;
 
 -- Desarrollado por Jair Bernal / ID 1098607050
